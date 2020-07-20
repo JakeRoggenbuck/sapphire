@@ -16,8 +16,9 @@ def update_list(url, directory)
   puts "Pulling " + url
   package_list = HTTP.get url
   # Saves the file to list.json
-  File.open(directory + 'list.json', 'w') { |file| file.write(package_list) }
-  puts "Downloaded lits.json to ".green + directory.green
+  if File.open(directory + 'list.json', 'w') { |file| file.write(package_list) }
+    puts "Downloaded lits.json to ".green + directory.green
+  end
 end
 
 # An Object for packages
@@ -60,8 +61,9 @@ class Package
     print 'Finish install? [Y/n] '
     finish_install = gets
     if finish_install.chomp == "Y" or finish_install.chomp == "y"
-      system('sudo sh impulse.build')
-      puts 'Installed successfully'.green
+      if system('sudo sh impulse.build')
+        puts 'Installed successfully'.green
+      end
     end
   end
   def clean()
