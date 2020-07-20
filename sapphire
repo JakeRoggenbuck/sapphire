@@ -26,12 +26,16 @@ class Package
   def initialize(name, config)
     @name = name
     @config = config + '/list.json'
-    @stage_dir = '/tmp/' + @name
+    @stage_dir = '/tmp/' + @name.split("/")[-1]
   end
   def clone()
-    file = File.read(@config)
-    data = JSON.parse(file)
-    upstream_url = data[@name]["url"]
+    if @name.include? "/"
+      upstream_url = "https://github.com/" + @name
+    else
+      file = File.read(@config)
+      data = JSON.parse(file)
+      upstream_url = data[@name]["url"]
+    end
     Dir.chdir('/tmp/')
     # Check if a stage directory exists
     if File.directory?(@stage_dir)
