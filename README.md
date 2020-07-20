@@ -1,3 +1,4 @@
+![alt text](https://raw.githubusercontent.com/jakeroggenbuck/sapphire/master/sapphire.png)
 <br>A simple git package manager written in ruby
 
 ### Install
